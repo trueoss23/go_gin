@@ -1,27 +1,15 @@
 package main
 
 import (
-	"fmt"
-
 	"net/http"
 
-	// "/go_gin/config"
-
+	"go_gin/config"
 	"go_gin/models"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-acme/lego/v4/platform/config/env"
 )
 
 func main() {
-
-	var cfg config.Config
-
-	err := env.Parse(&cfg)
-	if err != nil {
-		fmt.Printf("error parsing environment variables: %v\n", err)
-		return
-	}
 
 	router := gin.Default()
 
@@ -31,7 +19,7 @@ func main() {
 
 	router.POST("/products", addProduct)
 
-	router.Run(cfg.AppHost + cfg.AppPort)
+	router.Run(config.Cfg.AppHost + ":" + config.Cfg.AppPort)
 }
 
 /*
